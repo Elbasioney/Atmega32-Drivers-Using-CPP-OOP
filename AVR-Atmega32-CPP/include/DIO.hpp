@@ -53,8 +53,8 @@ typedef enum{
 class DIO
 {
 public:
-    DIO(pin_t pin , mode_t mode);    // DIO constructor
-    DIO(const DIO &dio) = default ;  // DIO copy constructor
+    DIO(pin_t pin , mode_t mode) ;   // DIO constructor
+    DIO(const DIO &dio) = delete ;   // DIO copy constructor
     ~DIO();                          // DIO destructor
     void write(logic_t logic);       // DIO write pin logic 
     logic_t read();                  // DIO read pin logic
