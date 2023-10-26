@@ -1,5 +1,6 @@
 #include "LCD.hpp"
 
+
 // cnstructor for lcd 8bits mode 
 LCD::LCD(pin_t pin1 , pin_t pin2 , pin_t pin3 , pin_t pin4 , pin_t pin5 ,pin_t pin6 , pin_t pin7 , pin_t pin8 , pin_t en , pin_t rs)
 {
@@ -64,6 +65,13 @@ void LCD::print(const char* string)
         }
     }
     
+}
+
+void LCD::print(const int number)
+{
+    char *str = "none";
+    sprintf(str,"%d", number);
+    print(str);
 }
 
 void LCD::clear(void)
@@ -182,21 +190,44 @@ void LCD::printCustomCharacter(int mem_pos)
     }
 }
 
+void LCD::cursorOn()
+{
+    lcd_sendCommand(0X0E); // cursor on
+}
+
+void LCD::cursorOff()
+{
+    lcd_sendCommand(0X0C); // cursor off
+}
+
 // LCD initialization
 void LCD::init(void)
 {
     if(this->mode == lcd_8bit_mode){
+        _delay_ms(20);
         lcd_sendCommand(0x38);  // LCD 8bit mode
         _delay_ms(5);
         lcd_sendCommand(0x38);  // LCD 8bit mode
         _delay_us(150);
         lcd_sendCommand(0x38);  // LCD 8bit mode
-        lcd_sendCommand(0x0C);  // LCD display on cursor off
         lcd_sendCommand(0x01);  // LCD clear
+        lcd_sendCommand(0x02);  // LCD home
         lcd_sendCommand(0x06);  // LCD entry mode
+        lcd_sendCommand(0x0C);  // LCD display on cursor off
         _delay_ms(10);
     }else if(this->mode == lcd_4bit_mode){
-
+        _delay_ms(20);
+        lcd_sendCommand(0x38);  // LCD 8bit mode
+        _delay_ms(5);
+        lcd_sendCommand(0x38);  // LCD 8bit mode
+        _delay_us(150);
+        lcd_sendCommand(0x38);  // LCD 8bit mode
+        lcd_sendCommand(0x01);  // LCD clear
+        lcd_sendCommand(0x02);  // LCD home
+        lcd_sendCommand(0x06);  // LCD entry mode
+        lcd_sendCommand(0x0C);  // LCD display on cursor off
+        lcd_sendCommand(0x28);  // LCD 4bit mode
+        lcd_sendCommand(0x80);  // LCD DDRAM address position(0,0)
     }else{
 
     }
@@ -218,8 +249,19 @@ void LCD::lcd_sendCommand(unsigned char cmd)
         _delay_ms(2);
 
     }else if(this->mode == lcd_4bit_mode){
-
-
+        rs.write(LOW);
+        data[0].write(((cmd >> 4) & 1));
+        data[1].write(((cmd >> 5) & 1));
+        data[2].write(((cmd >> 6) & 1));
+        data[3].write(((cmd >> 7) & 1));
+        lcd_enableSignal();
+        //_delay_ms(2);
+        data[0].write(((cmd >> 0) & 1));
+        data[1].write(((cmd >> 1) & 1));
+        data[2].write(((cmd >> 2) & 1));
+        data[3].write(((cmd >> 3) & 1));
+        lcd_enableSignal();
+        _delay_ms(2);
     }else{
 
     }
@@ -242,7 +284,19 @@ void LCD::lcd_sendData(unsigned char d)
         _delay_ms(2);
 
     }else if(this->mode == lcd_4bit_mode){
-
+        rs.write(HIGH);
+        data[0].write(((d >> 4) & 1));
+        data[1].write(((d >> 5) & 1));
+        data[2].write(((d >> 6) & 1));
+        data[3].write(((d >> 7) & 1));
+        lcd_enableSignal();
+        _delay_ms(2);
+        data[0].write(((d >> 0) & 1));
+        data[1].write(((d >> 1) & 1));
+        data[2].write(((d >> 2) & 1));
+        data[3].write(((d >> 3) & 1));
+        lcd_enableSignal();
+        _delay_ms(2);
 
     }else{
 

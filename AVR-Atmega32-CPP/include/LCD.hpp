@@ -5,6 +5,7 @@
 #include "DIO.hpp"
 #include <util/delay.h>
 #include "BIT_MATH.hpp"
+#include <stdio.h>
 
 typedef enum{
     lcd_4bit_mode = 0 ,
@@ -19,6 +20,7 @@ public:
     LCD(const LCD &lcd) = delete ;                                      // no copy constructor allowed
     ~LCD();                                                             // Destructor
     void print(const char* string);                                     // lcd print function (char or string)
+    void print(int number);                                             // lcd print function (numbers)
     void clear(void);                                                   // lcd clear function
     void setCursor(unsigned char row, unsigned char column);            // lcd change cursor position to the desired row and column
     void blinkOn();                                                     // turning cursor blinking on 
@@ -29,6 +31,8 @@ public:
     int getCurrentColumn();                                             // returns the current cursor's column position
     int getCurrentRow();                                                // returns the current cursor's row position
     void printCustomCharacter(int mem_pos);                             // lcd print the created custom character at the desired memory position 
+    void cursorOn();                                                    // lcd's cursor displayed
+    void cursorOff();                                                   // lcd's cursor not displayed
 private:
     DIO data[8] ;                                                       // lcd data pins (only four are used for 4bit mode)
     DIO en ;                                                            // lcd enable pin

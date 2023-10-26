@@ -47,19 +47,16 @@ char customChar4[8] = {
 };
 int main(void){
   
-  LCD lcd1(pina0, pina1, pina2, pina3, pina4, pina5, pina6 , pina7, pind0 , pind1);
-  lcd1.blinkOn();
-  
-  lcd1.createCustomCharacter(customChar1 , 0);
-  lcd1.createCustomCharacter(customChar2 , 1);
-  lcd1.createCustomCharacter(customChar3 , 2);
-  lcd1.createCustomCharacter(customChar4 , 3);
-  lcd1.printCustomCharacter(3);
-  lcd1.printCustomCharacter(2);
-  lcd1.printCustomCharacter(1);
-  lcd1.printCustomCharacter(0);
+ 	LCD lcd2(pinc0, pinc1, pinc2, pinc3, pinc4, pinc5, pinc6 , pind7, pind2 , pind3);
+  	LCD lcd1(pina4, pina5, pina6 , pina7, pind0 , pind1);
+  	DIO ledb5(pinb5 , input_pullup );
+	lcd1.print("my name is ahmed");
+	lcd2.print("i'm ");
+	int age = 22 ;
+	lcd2.print(age);
+	lcd2.print(" years old");
+	
   while(1){
-
   }
 
   return 0 ; 

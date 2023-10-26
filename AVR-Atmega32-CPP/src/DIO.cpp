@@ -47,6 +47,7 @@ bool DIO::read()
     return false ;
 }
 
+
 void DIO::pin_direction_init(pin_t pin , mode_t mode)
 {
     int port = pin / 8 ;
@@ -60,6 +61,8 @@ void DIO::pin_direction_init(pin_t pin , mode_t mode)
     }
    
 }
+
+
 DIO::DIO()
 {
     
