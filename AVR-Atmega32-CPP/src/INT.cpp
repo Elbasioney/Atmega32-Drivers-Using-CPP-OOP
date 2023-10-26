@@ -16,8 +16,30 @@ INT::INT(int_t interrupt , sense_t sense):interrupt(interrupt),sense(sense)
 
 INT::~INT()
 {
-
+    interrupt_disable();         // disable the interrupt corresponding pin 
 }
+
+void INT::interrupt_disable()
+{
+    this->interrupt_handler = NULL ;          // setting the object ISR to null
+    switch(this->interrupt){
+        case int_0:
+            CLEAR_BIT(GICR , 6 );             // Clearing int_0 interrupt enable bit
+            INT0_Interrupt_Handler = NULL ;   // passing null pointer to the call back function of int_0
+            break;
+        case int_1:
+            CLEAR_BIT(GICR , 7 );             // Clearing int_1 interrupt enable bit
+            INT1_Interrupt_Handler = NULL;    // passing null pointer to the call back function of int_1             
+            break;
+        case int_2:
+            CLEAR_BIT(GICR , 5 );             // Clearing int_2 interrupt enable bit
+            INT2_Interrupt_Handler = NULL;    // passing null pointer to the call back function of int_2
+            break;
+        default: 
+            break;
+        }
+}
+
 
 void INT::interrupt_enable(void (*interrupt_handler)(void))
 {

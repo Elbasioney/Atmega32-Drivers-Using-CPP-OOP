@@ -45,23 +45,25 @@ typedef enum{
     input_pullup
 }mode_t;
 
-typedef enum{
-    low ,
-    high 
-}logic_t;
+
+#define LOW  false
+#define HIGH true 
+
 
 class DIO
 {
 public:
-    DIO(pin_t pin , mode_t mode) ;   // DIO constructor
-    DIO(const DIO &dio) = delete ;   // DIO copy constructor
+    DIO() ;                          // DIO basic constructor
+    DIO(pin_t pin , mode_t mode) ;   // DIO paramitrized constructor
+    DIO(const DIO &dio) = delete ;   // DIO copy constructor not allowed
     ~DIO();                          // DIO destructor
-    void write(logic_t logic);       // DIO write pin logic 
-    logic_t read();                  // DIO read pin logic
+    void write(bool logic);          // DIO write pin logic 
+    bool read();                     // DIO read pin logic
 private:
     void pin_direction_init(pin_t pin , mode_t mode);  // DIO direction initialization (output , input , input_pullup)
     pin_t pin ;
     mode_t mode ;
+    friend class LCD ;
 };
 
 #endif
