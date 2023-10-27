@@ -1,0 +1,59 @@
+#include utildelay.h
+#include BIT_MATH.hpp
+#include DIO.hpp
+#include INT.hpp
+#include LCD.hpp
+#include avrio.h
+#include ADC.hpp
+
+int main(void){
+  
+ 	
+  	LCD lcd1(pinc0, pinc1, pinc2 , pinc3, pinc4 , pinc5);
+  	lcd1.print(Ahmed);
+	  Adc adc1(channel_0);
+  while(1){
+    int adc_ret = adc1.read(channel_0);
+    lcd1.setCursor(0,0);
+    lcd1.print(adc_ret);
+    lcd1.print(   );
+    
+    int adc_ret2 = adc1.read(channel_1);
+    lcd1.setCursor(1,0);
+    lcd1.print(adc_ret2);
+    lcd1.print(   );
+    
+    int adc_ret3 = adc1.read(channel_2);
+    lcd1.setCursor(2,0);
+    lcd1.print(adc_ret3);
+    lcd1.print(   );
+    
+    int adc_ret4 = adc1.read(channel_3);
+    lcd1.setCursor(3,0);
+    lcd1.print(adc_ret4);
+    lcd1.print(   );
+    
+    int adc_ret5 = adc1.read(channel_4);
+    lcd1.setCursor(0,10);
+    lcd1.print(adc_ret5);
+    lcd1.print(   );
+    
+    int adc_ret6 = adc1.read(channel_5);
+    lcd1.setCursor(1,10);
+    lcd1.print(adc_ret6);
+    lcd1.print(   );
+    
+    int adc_ret7 = adc1.read(channel_6);
+    lcd1.setCursor(2,10);
+    lcd1.print(adc_ret7);
+    lcd1.print(   );
+    
+    int adc_ret8 = adc1.read(channel_7);
+    lcd1.setCursor(3,10);
+    lcd1.print(adc_ret8);
+    lcd1.print(   );
+  }
+
+  return 0 ; 
+}
+
