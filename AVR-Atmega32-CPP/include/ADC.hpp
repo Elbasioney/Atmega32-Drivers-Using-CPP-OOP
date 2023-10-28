@@ -48,8 +48,9 @@ public:
 private:
     void init();
     Adc_channel_t c_channel ;
-    static const Adc_prescaler_t Adc_prescaler = prescaler_div_by_2 ;
+    static const Adc_prescaler_t Adc_prescaler = prescaler_div_by_64 ;
     static const voltage_refrence_t voltage_refrence = AVCC ; 
+    friend class LM35 ;
 };
 
 
