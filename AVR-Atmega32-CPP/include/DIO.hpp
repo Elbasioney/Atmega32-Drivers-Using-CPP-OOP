@@ -58,6 +58,9 @@ public:
     ~DIO();                          // DIO destructor
     void write(bool logic);          // DIO write pin logic 
     bool read();                     // DIO read pin logic
+    void on();                       // DIO pin write high
+    void off();                      // DIO pin write low
+    void toggle();                   // DIO pin toggle
 private:
     void pin_direction_init(pin_t pin , mode_t mode);  // DIO direction initialization (output , input , input_pullup)
     pin_t pin ;

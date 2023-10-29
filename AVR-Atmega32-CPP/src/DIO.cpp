@@ -47,6 +47,29 @@ bool DIO::read()
     return false ;
 }
 
+void DIO::on()
+{
+    write(HIGH);
+}
+
+void DIO::off()
+{
+    write(LOW);
+}
+
+void DIO::toggle()
+{
+    int port = pin / 8 ;
+    int bit = pin % 8 ;
+    switch(port){
+        case 0  :  TOGGLE_BIT(PORTA, bit) ;
+        case 1  :  TOGGLE_BIT(PORTB, bit) ;
+        case 2  :  TOGGLE_BIT(PORTC, bit) ;
+        case 3  :  TOGGLE_BIT(PORTD, bit) ;
+        default :  break ; 
+    }
+}
+
 
 void DIO::pin_direction_init(pin_t pin , mode_t mode)
 {
