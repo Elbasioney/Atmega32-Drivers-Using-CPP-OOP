@@ -1,6 +1,6 @@
 #include "TMR0.hpp"
 
-static void (*TMR0_Interrupt_Handler)(void) = NULL ;
+static void (*TMR0_OVF_Interrupt_Handler)(void) = NULL ;            // timer 0 overflow interrupt handler
 
 static unsigned int register_value = 0 ;
 
@@ -32,9 +32,9 @@ void TMR0::delay(int msec)
 {
     int times = 0 ;
     if(this->f_cpu == 8000000UL){
-        times = msec / 38 ; 
+        times = msec / 33 ; 
     }else if(this->f_cpu == 16000000UL){
-        times = msec / 17 ; 
+        times = msec / 16 ; 
     } 
      
     while(times--){
@@ -50,7 +50,7 @@ void TMR0::singleInterrupt(unsigned int msec , void (* interrupt_handler)(void))
         
     }else{
         SET_BIT(SREG , 7);           // Enable global interrupt
-        TMR0_Interrupt_Handler = interrupt_handler ; 
+        TMR0_OVF_Interrupt_Handler = interrupt_handler ; 
         register_value =  255 - (unsigned char)msec*1000 / tick_time ;
         TCNT0 = register_value ;
         periodicity_status = asynchronous_single_interrupt ;   // set interrupt to be periodic in each timer overflow
@@ -65,7 +65,7 @@ void TMR0::periodicInterrupt(unsigned int msec , void (* interrupt_handler)(void
         
     }else{
         SET_BIT(SREG , 7);                                                   // Enable global interrupt
-        TMR0_Interrupt_Handler = interrupt_handler ;                         // passing the (ISR) to the callback function
+        TMR0_OVF_Interrupt_Handler = interrupt_handler ;                         // passing the (ISR) to the callback function
         register_value =  255 - ((unsigned char)((msec*1000) / tick_time)) ; // setting the timer 0 overflow register value
         TCNT0 = register_value ;                               
         periodicity_status = asynchronous_periodic_interrupt ;               // set interrupt to be periodic in each timer overflow
@@ -126,9 +126,9 @@ void TMR0::init()
 // TMR0 overflow ISR 
 ISR(TIMER0_OVF_vect)
 {
-    if(TMR0_Interrupt_Handler)
+    if(TMR0_OVF_Interrupt_Handler)
     {
-        TMR0_Interrupt_Handler();
+        TMR0_OVF_Interrupt_Handler();
     }else{
 
     }

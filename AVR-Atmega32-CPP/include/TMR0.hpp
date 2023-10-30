@@ -50,7 +50,7 @@ private:
     timer0_mode_t c_mode ; 
     timer0_edge_t c_edge ;
     static const timer0_clock_t c_clock  = sysclk_prescaler_div_by_1024 ; 
-    static const unsigned long f_cpu = 8000000UL ;   // cpu clock frequency 
+    static const unsigned long f_cpu = 16000000UL ;   // cpu clock frequency 
     long tick_time ; 
     void init();
 };

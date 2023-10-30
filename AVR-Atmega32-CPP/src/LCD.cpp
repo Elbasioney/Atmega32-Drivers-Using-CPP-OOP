@@ -67,7 +67,25 @@ void LCD::print(const char* string)
     
 }
 
-void LCD::print(const int number)
+void LCD::print(const unsigned char ch)
+{
+    lcd_sendData(ch);
+    this->c_column++;
+        if(c_column == 20){
+            c_column = 0 ;
+            this->c_row++;
+        if(this->c_row == 4){
+            this->c_row = 0 ;
+            this->c_column = 0 ;
+        }else{
+
+        }
+    }else{
+
+    }
+}
+
+void LCD::printnum(const int number)
 {
     char *str = "none";
     sprintf(str,"%d", number);

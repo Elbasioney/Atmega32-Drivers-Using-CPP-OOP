@@ -66,6 +66,7 @@ private:
     pin_t pin ;
     mode_t mode ;
     friend class LCD ;
+    friend class KEYPAD ;
 };
 
 #endif

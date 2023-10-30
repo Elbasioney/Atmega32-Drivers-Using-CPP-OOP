@@ -19,8 +19,9 @@ public:
     LCD(pin_t pin1 , pin_t pin2 , pin_t pin3 , pin_t pin4 , pin_t en , pin_t rs);                                                    // parameterized constructor for 4bit mode
     LCD(const LCD &lcd) = delete ;                                      // no copy constructor allowed
     ~LCD();                                                             // Destructor
-    void print(const char* string);                                     // lcd print function (char or string)
-    void print(int number);                                             // lcd print function (numbers)
+    void print(const char* string);                                     // lcd print function (string)
+    void print(const unsigned char ch);                                 // lcd print function (char)
+    void printnum(const int number);                                    // lcd print function (numbers)
     void clear(void);                                                   // lcd clear function
     void setCursor(unsigned char row, unsigned char column);            // lcd change cursor position to the desired row and column
     void blinkOn();                                                     // turning cursor blinking on 
