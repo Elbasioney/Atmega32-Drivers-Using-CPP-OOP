@@ -67,6 +67,7 @@ private:
     mode_t mode ;
     friend class LCD ;
     friend class KEYPAD ;
+    friend class PWM ;
 };
 
 #endif

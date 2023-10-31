@@ -107,8 +107,8 @@ void TMR0::init()
     TCCR0 |= (((c_mode >> 1) & 0x01) << 3);       // selecting mode 
     TCCR0 |= ((c_mode & 0x01) << 6);              // selecting mode
 
-    TCCR0 &= 0b11111000 ;                         // clock source masking
-                                 // selecting clock source 
+    TCCR0 &= 0b11111000 ;                          // clock source masking
+    TCCR0 |= c_clock ;                             // selecting clock source 
 
     if(c_mode == normal_mode && c_edge){
         c_edge == T0_falling_edge ? TCCR0 |= 6 : TCCR0 |= 7 ;

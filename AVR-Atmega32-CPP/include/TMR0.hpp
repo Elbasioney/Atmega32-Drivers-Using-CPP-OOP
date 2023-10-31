@@ -53,6 +53,7 @@ private:
     static const unsigned long f_cpu = 16000000UL ;   // cpu clock frequency 
     long tick_time ; 
     void init();
+    friend class PWM ;
 };
 
 
